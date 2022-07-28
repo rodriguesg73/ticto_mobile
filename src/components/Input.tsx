@@ -1,8 +1,8 @@
 import { Input as NativeBaseInput } from 'native-base';
 
-export function Input() {
+export const Input = () => {
   return (
-    <NativeBaseInput>
+    <NativeBaseInput bg="">
 
     </NativeBaseInput>
   );
