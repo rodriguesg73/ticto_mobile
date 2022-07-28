@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "ticto_mobile",
+    "slug": "ticto_mobile",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
