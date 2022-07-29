@@ -23,6 +23,7 @@ export const THEME = extendTheme({
       300: '#7C7C8A',
       200: '#C4C4CC',
       100: '#E1E1E6',
+      50: '#B9B9B9'
     },
     purple: {
       500: '#30107D',

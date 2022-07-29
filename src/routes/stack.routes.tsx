@@ -1,7 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Home } from '../screens/Home';
-import { Transaction } from '../screens/Transaction';
+import { Transaction } from '../components/Transaction';
 
 
 const stackRoutes = createStackNavigator();

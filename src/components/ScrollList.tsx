@@ -1,49 +1,60 @@
-import { Box, FlatList, HStack, Spacer, Text } from 'native-base';
+import { Box, FlatList, HStack, Spacer, Text, VStack, Heading, Avatar, AlertDialog, Button } from 'native-base';
+import { useState, useRef } from 'react';
 import { Feather } from '@expo/vector-icons';
-import { ItemClick } from 'native-base/lib/typescript/components/composites/Typeahead/useTypeahead/types';
+
+import {dataList} from '../data/data';
+
+interface TransactionProps {
+  id: string;
+  description: string;
+  value: string;
+  type: boolean;
+  category: string;
+  date: string 
+}
+
 
 export function ScrollList() {
-  const data = [{
-    id: '1',
-    description: 'Curso React',
-    value: 899,
-    category: 'Educação',
-    date: '2022-07-28'
-  },{
-    id: '2',
-    description: 'Curso React',
-    value: 899,
-    category: 'Educação',
-    date: '2022-07-28'
-  },
-  ,{
-    id: '3',
-    description: 'Curso React',
-    value: 7350,
-    category: 'Receita fixa',
-    date: '2022-07-28'
-  },{
-    id: '4',
-    description: 'Curso React',
-    value: 899,
-    category: 'Educação',
-    date: '2022-07-28'
-  },
-];
+  const [data, setData] = useState(dataList);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const onOpen = (id: string) => {setIsOpen(!isOpen); handleDeleteTransaction(id)};
+  
+  const handleDeleteTransaction = (id: string) => {
+    const filteredData = dataList.filter(item => item.id !== id);
+    setData(filteredData);
+  };
+
+  const currencyFormat = (value) => {
+    return '$' + value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+  }
+  
   return (
-    <FlatList data={data} keyExtractor={item => item?.id} renderItem={({
-      item
-    }) => <Box borderBottomWidth={'1'} _dark={{
-      borderColor: "gray.500"
-    }} borderColor="coolGray.200" pl="4" pr="5" py="2">
-      <HStack space={3} justifyContent="space-between">
-        <Text _dark={{color: "warmGray.50"}} color="coolGray.800" bold>{item.description}</Text>
-        <Text color="coolGray.600" _dark={{color: "warmGray.200"}}>{item.value}</Text>
-        <Text color="coolGray.600" _dark={{color: "warmGray.200"}}>{item.category}</Text>
-        <Text color="coolGray.600" _dark={{color: "warmGray.200"}}>{item.date}</Text>
-        <Spacer />
-        <Feather name="trash"  />
-      </HStack>
-    </Box>} /> 
+    <Box>
+      <Heading fontSize="xl" p="4" pb="3" color="gray.50">
+        Transações
+      </Heading>
+      <FlatList data={data} renderItem={({item }) => <Box borderBottomWidth="1" _dark={{ borderColor: "gray.600" }}
+        borderColor="coolGray.200" pl="4" pr="5" py="2">
+        <HStack space={3} justifyContent="space-between">
+          <VStack>
+            <Text _dark={{ color: "warmGray.50" }} color="gray.500" bold>
+                {item.description}
+            </Text>
+            <Text color="coolGray.600" _dark={{ color: "gray.600" }}>
+                {item.category}
+            </Text>
+          </VStack>
+          <Spacer />
+          <Text fontSize="xs" _dark={{ color: "warmGray.50" }} 
+            color={item.type == 1 ? 'green.100' : 'red.500' } 
+            alignSelf="flex-start">
+              {currencyFormat(item.value)}
+          </Text>
+          <Spacer />
+          <Feather name='trash' color='red'onPress={()=> onOpen(item.id)}/>
+        </HStack>
+      </Box>} keyExtractor={item => item.id} />
+    </Box>
   );
-}
+};
