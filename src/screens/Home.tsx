@@ -1,10 +1,22 @@
 import { ScrollView, View } from 'native-base';
 import { Feather } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/core';
+import { StackNavigationProp } from '@react-navigation/stack';
 
+import { RootStackParamList } from '../screens/RootStackParams';
 import { Header } from '../components/Header';
 import { Card } from '../components/Card';
+import { ScrollList } from '../components/ScrollList';
+
+type transactionScreenProp = StackNavigationProp<RootStackParamList, 'Transaction'>;
 
 export const Home = () => {
+  // const navigation = useNavigation<transactionScreenProp>();
+
+  // function handleTransactionPage() {
+  //   navigation.navigate('Transaction' as never)
+  // }
+
   return (
     <View flex={1} bg="cinza.200">
       <Header />
@@ -31,6 +43,7 @@ export const Home = () => {
           icon={<Feather name="dollar-sign" size={32} color={'white'} />} value='R$1500,00'
         />
       </ScrollView>
+      <ScrollList />
     </View>
   )
 }

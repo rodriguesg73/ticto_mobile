@@ -10,7 +10,7 @@ interface CardProps {
   titleCardColor: string;
 }
 
-export function Card(props: CardProps,) {
+export function Card(props: CardProps, ...rest) {
   return (
       <View bg={props.color} w={'56'} h={'32'} mx={2} my={2} justifyContent={'center'}>
         <Flex direction="row" display={'flex'} justifyContent={'space-between'} p={2} mb={2}>
